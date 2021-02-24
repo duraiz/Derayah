@@ -11,7 +11,7 @@ Requirements pior to running ansible playbook
 
  For that i used a powershell script from public solution to enable winrm
 
- [ https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1]
+ [https://raw.githubusercontent.com/ansible/ansible/devel/examples/scripts/ConfigureRemotingForAnsible.ps1]
 
 
 ## Run the playbook, like this:
