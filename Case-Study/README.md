@@ -19,4 +19,4 @@ Requirements pior to running ansible playbook
  * ansible-playbook -i hosts playbook.yaml
 
 ### How to upload your ssh key
-Plase put your ssh key in default.yml file and it will uploaded to windows machine
+Plase put your ssh key in ssh-keys.yml file and it will uploaded to windows machine

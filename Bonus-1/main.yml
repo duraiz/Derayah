@@ -13,4 +13,4 @@
   roles:
   - role: enable_ssh
     vars:
-      contents: "{{ lookup('file', './default.yml') }}"
+      contents: "{{ lookup('file', './ssh-keys.yml') }}"

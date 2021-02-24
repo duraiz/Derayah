@@ -1,7 +1,7 @@
 - name: Case Study
   hosts: windows
   vars:
-     contents: "{{ playbook_dir }}/default.yml"
+     contents: "{{ playbook_dir }}/ssh-keys.yml"
   tasks:
   - name: Install chocolatey
     win_chocolatey:

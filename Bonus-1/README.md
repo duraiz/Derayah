@@ -15,4 +15,4 @@ Azure credentials
 * ansible-playbook  main.yml
 
 ### How to upload your ssh key
-Plase put your ssh key in roles/enable_ssh/tasks/default.yml file and it will uploaded to windows machine
+Plase put your ssh key in roles/enable_ssh/tasks/ssh-keys.yml file and it will uploaded to windows machine
