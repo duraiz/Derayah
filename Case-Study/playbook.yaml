@@ -1,7 +1,7 @@
 - name: Case Study
   hosts: windows
   vars:
-     contents: "{{ lookup('file', './default.yml') }}"
+     contents: "{{ playbook_dir }}/default.yml"
   tasks:
   - name: Install chocolatey
     win_chocolatey:
