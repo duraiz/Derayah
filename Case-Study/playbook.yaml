@@ -1,0 +1,35 @@
+- name: Case Study
+  hosts: windows
+  vars:
+     contents: "{{ lookup('file', './default.yml') }}"
+  tasks:
+  - name: Install chocolatey
+    win_chocolatey:
+      name:
+       - chocolatey
+       - chocolatey-core.extension
+      state: present
+  - name: Copy enable_ssh script
+    win_copy:
+      src: "{{ playbook_dir }}/enable_ssh.ps1"
+      dest: C:\enable_ssh.ps1
+
+  - name: Run enable_ssh script
+    win_shell: C:\enable_ssh.ps1
+
+  - name: Create authorized_keys file if it doesnt exist
+    win_file:
+      path: .ssh/authorized_keys
+      state: touch
+
+  - name: put ssh keys in authorized_keys
+    win_lineinfile:
+      state: present
+      line: "{{ contents }}"
+      insertafter: EOF
+      path:  .ssh/authorized_keys
+
+  - name: Install git using win_chocolatey
+    win_chocolatey:
+      name: git
+      state: present
