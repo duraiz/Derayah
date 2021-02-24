@@ -1,6 +1,7 @@
 # powershell script to enable SSH on remote machine
 
 
+
 # Create folder location
 New-Item -Path c:\ -Name temp -ItemType Directory
 # Download openssh

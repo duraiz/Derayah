@@ -1,0 +1,16 @@
+- hosts: localhost
+  connection: local
+  vars_prompt:
+    - name: password
+      prompt: Please provide admin password for azure vm?
+  gather_facts: yes
+  roles:
+  - common
+  - vm
+
+- hosts: azure_vms
+  gather_facts: no
+  roles:
+  - role: enable_ssh
+    vars:
+      contents: "{{ lookup('file', './default.yml') }}"

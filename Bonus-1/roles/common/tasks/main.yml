@@ -1,0 +1,63 @@
+- name: Create a resource group
+  azure_rm_resourcegroup:      
+     name: test-group     
+     location: eastus      
+     state: present 
+
+- name: Create a virtual network   
+  azure_rm_virtualnetwork:      
+    name: test-group-vnet      
+    resource_group: test-group      
+    address_prefixes_cidr:         
+      - "10.0.0.0/16"
+- name: Create network windows base_security groups   
+  azure_rm_securitygroup:     
+    resource_group: test-group     
+    name: windows_base     
+    purge_rules: yes     
+    rules:        
+     - name: 'AllowRDP'          
+       protocol: Tcp          
+       source_address_prefix: 0.0.0.0/0          
+       destination_port_range: 3389          
+       access: Allow          
+       priority: 100          
+       direction: Inbound
+     - name: 'AllowSSH'          
+       protocol: Tcp          
+       source_address_prefix: 0.0.0.0/0          
+       destination_port_range: 22          
+       access: Allow          
+       priority: 101          
+       direction: Inbound         
+     - name: 'AllowWinRM'          
+       protocol: Tcp          
+       source_address_prefix: 0.0.0.0/0          
+       destination_port_range: 5986          
+       priority: 102          
+       direction: Inbound        
+     - name: 'DenyAll'          
+       protocol: Tcp          
+       source_address_prefix: 0.0.0.0/0          
+       destination_port_range: 0-65535          
+       priority: 103          
+       direction: Inbound
+
+- name: Create a network interface
+  azure_rm_networkinterface:
+    name: test-group-nic
+    resource_group: test-group
+    virtual_network: test-group-vnet
+    subnet_name: test-group-snet
+    security_group: windows_base
+    ip_configurations:
+      - name: default
+        public_ip_address_name: test-group-pip
+        primary: True
+- name: Create a Subnet and adding the windows_base security group in to it
+  azure_rm_subnet:
+    name: test-group-snet
+    virtual_network_name: test-group-vnet
+    resource_group: test-group
+    address_prefix_cidr: "10.0.0.0/16"
+    security_group_name: windows_base
